@@ -33,6 +33,8 @@ class ByteStream(pyte.ByteStream):
             while True:
                 try:
                     data = process.read(1024)
+                    if isinstance(data, bytes):
+                        data = data.decode('utf-8')
                 except EOFError:
                     break
                 if data:
