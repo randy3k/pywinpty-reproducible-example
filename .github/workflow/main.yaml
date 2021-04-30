@@ -1,0 +1,21 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  pywinpty101:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install and running tests
+        run: |
+          pip install pywinpty
+          pytest
+  pywinpty057:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install and running tests
+        run: |
+          pip install pywinpty==0.5.7
+          pytest
