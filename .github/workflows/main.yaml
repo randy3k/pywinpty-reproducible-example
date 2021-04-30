@@ -9,15 +9,13 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install and running tests
         run: |
-          pip install pywinpty
-          pip install six pyte pytest
-          pytest
+          pip install pywinpty pyte six
+          python foo
   pywinpty057:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
       - name: Install and running tests
         run: |
-          pip install pywinpty==0.5.7
-          pip install six pyte pytest
-          pytest
+          pip install pywinpty==0.5.7 pyte six
+          python foo
