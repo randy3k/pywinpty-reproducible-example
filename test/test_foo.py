@@ -1,3 +1,4 @@
+import time
 import sys
 from .terminal import Terminal
 
@@ -5,4 +6,5 @@ from .terminal import Terminal
 def test_foo():
     command = [sys.executable, "--version"]
     with Terminal.open(command) as terminal:
-        terminal.line(0).assert_startswith("Python")
+        time.sleep(1)
+        assert terminal.screen.display[0].startswith("Python")
