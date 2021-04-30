@@ -18,41 +18,16 @@ __all__ = ["PtyProcess", "Screen", "ByteStream", "Terminal"]
 
 
 if sys.platform.startswith("win"):
-    ParentPtyProcess = winpty.PtyProcess
+    PtyProcess = winpty.PtyProcess
 else:
-    ParentPtyProcess = ptyprocess.PtyProcess
-
-
-class PtyProcess(ParentPtyProcess):
-
-    def read(self, nbytes):
-        if sys.platform.startswith("win"):
-            return super(PtyProcess, self).read(nbytes).encode("utf-8")
-        else:
-            return super(PtyProcess, self).read(nbytes)
-
-    def write(self, data):
-        if sys.platform.startswith("win"):
-            super(PtyProcess, self).write(data.decode("utf-8"))
-        else:
-            super(PtyProcess, self).write(data)
-
-
-class Screen(pyte.Screen):
-
-    def __init__(self, process, *args, **kwargs):
-        self._process = process
-        super(Screen, self).__init__(*args, **kwargs)
-
-    def write_process_input(self, data):
-        self._process.write(data.encode("utf-8"))
+    PtyProcess = ptyprocess.PtyProcess
 
 
 class ByteStream(pyte.ByteStream):
 
     def start_feeding(self):
         screen = self.listener
-        process = screen._process
+        process = self.process
 
         def reader():
             while True:
@@ -78,8 +53,9 @@ class Terminal(object):
     def open(cls, cmd):
         env = os.environ.copy()
         process = PtyProcess.spawn(cmd, dimensions=(40, 80), env=env)
-        screen = Screen(process, 80, 40)
+        screen = pyte.Screen(80, 40)
         stream = ByteStream(screen)
+        stream.process = process
         stream.start_feeding()
         try:
             yield cls(process, screen, stream)
