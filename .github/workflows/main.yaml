@@ -10,7 +10,7 @@ jobs:
       - name: Install and running tests
         run: |
           pip install pywinpty pyte six
-          python foo
+          python foo.py
   pywinpty057:
     runs-on: windows-latest
     steps:
@@ -18,4 +18,4 @@ jobs:
       - name: Install and running tests
         run: |
           pip install pywinpty==0.5.7 pyte six
-          python foo
+          python foo.py
