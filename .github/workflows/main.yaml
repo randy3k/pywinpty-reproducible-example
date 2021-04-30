@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install and running tests
+      - name: Run script
         run: |
           pip install pywinpty pyte six
           python foo.py
@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install and running tests
+      - name: Run script
         run: |
           pip install pywinpty==0.5.7 pyte six
           python foo.py
