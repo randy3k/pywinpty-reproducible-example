@@ -10,6 +10,7 @@ jobs:
       - name: Install and running tests
         run: |
           pip install pywinpty
+          pip install pytest
           pytest
   pywinpty057:
     runs-on: windows-latest
@@ -18,4 +19,5 @@ jobs:
       - name: Install and running tests
         run: |
           pip install pywinpty==0.5.7
+          pip install pytest
           pytest
