@@ -58,7 +58,8 @@ class ByteStream(pyte.ByteStream):
             while True:
                 try:
                     data = process.read(1024)
-                except EOFError:
+                except Exception as e:
+                    print(e)
                     break
                 if data:
                     self.feed(data)
